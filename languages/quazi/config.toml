@@ -1,0 +1,4 @@
+name = "Quazi"
+grammar = "quazi"
+path_suffixes = ["qz"]
+line_comments = ["// "]
