@@ -8,7 +8,7 @@ repository = "https://github.com/quazilang/zed-quazi"
 
 [grammars.quazi]
 repository = "https://github.com/quazilang/tree-sitter"
-rev = "685ebbf2760a443262a7c8deb51b04f25d2e78c9"
+rev = "c3d5c29393c9bcfce498f3c2f7b3a6f2c8026896"
 
 [language_servers.quazi]
 name = "Quazi Language Server"
