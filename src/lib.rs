@@ -10,10 +10,14 @@ impl zed::Extension for QuaziExtension {
     fn language_server_command(
         &mut self,
         _language_server_id: &zed::LanguageServerId,
-        _worktree: &zed::Worktree,
+        worktree: &zed::Worktree,
     ) -> zed::Result<zed::Command> {
+        let path = worktree
+            .which("qz")
+            .ok_or_else(|| "qz not found in PATH".to_string())?;
+
         Ok(zed::Command {
-            command: "qz".into(),
+            command: path,
             args: vec!["lsp".into()],
             env: Default::default(),
         })
