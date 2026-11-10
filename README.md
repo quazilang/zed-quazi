@@ -1,7 +1,7 @@
 # Quazi for Zed
 
 This Zed extension registers `.qz`, pins `tree-sitter-quazi` to
-`c3d5c29393c9bcfce498f3c2f7b3a6f2c8026896`, and starts `qz lsp` from `PATH`.
+`22c684a0d89d5be381d07b6460528db9bee4fcad`, and starts `qz lsp` from `PATH`.
 Develop locally with Zed's **Install Dev Extension** command. It does not bundle
 the compiler; install `qz` separately.
 
