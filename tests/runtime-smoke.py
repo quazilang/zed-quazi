@@ -5,8 +5,8 @@ Zed runs on a virtual X server (Xvfb) with Mesa's software Vulkan driver
 (lavapipe), so no GPU is needed. The test uses an isolated home directory,
 installs a copy of this extension as a dev extension through the command
 palette (Zed compiles the extension and the grammar to WebAssembly itself),
-opens a `.qz` file, and drives hover (`editor: hover`) and go to definition
-(`editor: go to definition`) with keystrokes. `qz` is reached through a
+opens a `.qz` file, and drives hover (`editor: hover`), go to definition
+(`editor: go to definition`) and completion while typing with keystrokes. `qz` is reached through a
 logging proxy on PATH; the test requires Zed to send each request for the
 open document and the server to answer it with a result.
 
@@ -259,7 +259,22 @@ def main():
             dump()
             raise SystemExit(f"FAIL zed runtime: definition of helper is not on line 1: {definition}")
 
-        print("PASS zed runtime: dev extension built and installed, qz lsp hover and definition answered")
+        # Completion while typing: a new statement in main that starts `hel`.
+        command("go to line")
+        time.sleep(1)
+        type_text("4:34")
+        keys("Return")
+        keys("End", "Return")
+        type_text("hel")
+        completion = wait_for(lambda: answered(log, "textDocument/completion"), 30,
+                              "a completion answer", dump)
+        items = completion.get("items", []) if isinstance(completion, dict) else completion
+        if not any(item.get("label") == "helper" for item in items or []):
+            dump()
+            raise SystemExit(f"FAIL zed runtime: completion did not offer helper: {completion}")
+
+        print("PASS zed runtime: dev extension built and installed, qz lsp hover, definition "
+              "and completion answered")
     finally:
         for process in reversed(processes):
             process.terminate()

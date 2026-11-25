@@ -25,9 +25,9 @@ isolated home directory. The test installs a copy of this extension through
 the command palette (**zed: install dev extension**, with
 `use_system_path_prompts` off), so Zed itself compiles the extension and the
 grammar to WebAssembly; then it opens a `.qz` file and drives **editor: hover**
-and **editor: go to definition** with `xdotool`. `qz` runs behind a logging
+and **editor: go to definition** and types the start of a call with `xdotool`. `qz` runs behind a logging
 proxy, and the test requires Zed to start `qz lsp`, open the document, and get
-answers to both requests. Until the pinned grammar revision is published, the
+answers to hover, definition and completion (offering `helper`). Until the pinned grammar revision is published, the
 copy fetches it from the local `../tree-sitter` checkout (`file://`). Zed
 downloads the WASI SDK on the first build (network access), and the Rust
 toolchain needs the `wasm32-wasip2` target. Verified with Zed 1.28.1 from
